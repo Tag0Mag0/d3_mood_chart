@@ -16,17 +16,19 @@
     <script>
       var graphWidth = window.innerWidth * .9;
 
+      var emotionGraphTitle = "Positive and Negative Emotions"
       d3.select("#emotions")
         .datum(emotionsData)
-          .call(columnChart(-10, 10)
+          .call(columnChart(-10, 10, emotionGraphTitle )
             .width(graphWidth)
             .height(200)
             .x(function(d, i) { return d.day; })
             .y(function(d, i) { return d.intensity; }));
 
+      var moodGraphTitle = "Mood"
       d3.select("#mood")
         .datum(moodData)
-          .call(columnChart(0, 10)
+          .call(columnChart(0, 10, moodGraphTitle)
             .width(graphWidth)
             .height(200)
             .x(function(d, i) { return d.day; })

@@ -1,4 +1,4 @@
-      function columnChart(lowBound, highBound) {
+      function columnChart(lowBound, highBound, title) {
         var margin = {top: 30, right: 10, bottom: 50, left: 50},
             width = 420,
             height = 420,
@@ -53,7 +53,7 @@
                 .attr("font-family","sans-serif")
                 .attr("text-anchor","middle")
                 .attr("font-weight","bold")
-                .text("Positive and Negative Emotions");
+                .text(title);
 
             // draw average line
             var values = d3.map(data, function(d, i) { return d[1]; }).keys();
