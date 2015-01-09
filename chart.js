@@ -8,7 +8,8 @@
             xScale = d3.scale.ordinal(),
             yScale = d3.scale.linear(),
             yAxis = d3.svg.axis().scale(yScale).orient("left"),
-            xAxis = d3.svg.axis().scale(xScale);
+            xAxis = d3.svg.axis().scale(xScale),
+            titleHeight = 25;
 
 
         function chart(selection) {
@@ -38,6 +39,7 @@
 
             // Otherwise, create the skeletal chart.
             var gEnter = svg.enter().append("svg").append("g");
+            gEnter.append("g").attr("class", "average-lines");
             gEnter.append("g").attr("class", "bars");
             gEnter.append("g").attr("class", "y axis");
             gEnter.append("g").attr("class", "x axis");
@@ -48,8 +50,8 @@
                 .attr("height", height)
                 .append("text")
                 .attr("x", graphWidth/2)
-                .attr("y", 25)
-                .attr("font-size",25)
+                .attr("y", titleHeight)
+                .attr("font-size", titleHeight)
                 .attr("font-family","sans-serif")
                 .attr("text-anchor","middle")
                 .attr("font-weight","bold")
@@ -58,16 +60,19 @@
             // draw average line
             var positiveValues = [], negativeValues = [];
             for (var i = 0; i < data.length; i++) {
-              if (data[i][2] === undefined || data[i][2] === true) {
+              if (data[i][2] === false) {
+                negativeValues.push(-data[i][1]);
+              } else {
                 positiveValues.push(data[i][1]);
               }
             }
-            svg .append("rect")
-                .attr("class", "average-line")
-                .attr("width", width)
-                .attr("height", 5)
-                .attr("x", xScale(0))
-                .attr("y", yScale(d3.mean(positiveValues)));
+            svg.select(".average-lines").append("rect")
+               .attr("class", "average-line")
+               .attr("width", width)
+               .attr("height", 5)
+               .attr("x", xScale(0))
+               .attr("y", titleHeight + yScale(d3.mean(positiveValues)))
+               .attr("z-index", -1);
 
             // Update the inner dimensions.
             var g = svg.select("g")
