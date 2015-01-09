@@ -4,22 +4,31 @@
   <head>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.min.js" charset="utf-8" ></script>
     <script type="text/javascript" src="chart.js" charset="utf-8" ></script>
+    <script type="text/javascript" src="emotions_data.js" charset="utf-8" ></script>
+    <script type="text/javascript" src="mood_data.js" charset="utf-8" ></script>
     <link href="styles.css" rel="stylesheet" type="text/css">
   </head>
 
   <body>
-    <div id="example"></div>
+    <div id="emotions"></div>
+    <div id="mood"></div>
 
     <script>
-      var data = [{day: "M", intensity: 4}, {day: "M", intensity: -5}, {day: "T", intensity: 8}, {day: "T", intensity: -4}, {day: "W", intensity: 9}, {day:"W", intensity:-5}, {day:"R", intensity: 4}, {day:"R", intensity:-5}, {day:"F", intensity: 8}, {day:"F", intensity:-4}, {day:"Sa", intensity:9}, {day:"Sa", intensity:-5}, {day:"Su", intensity:9}, {day:"Su", intensity:-10}];
+      var graphWidth = window.innerWidth * .9;
 
-      var graphWidth = window.innerWidth * .9
-
-      d3.select("#example")
-        .datum(data)
+      d3.select("#emotions")
+        .datum(emotionsData)
           .call(columnChart()
             .width(graphWidth)
-            .height(500)
+            .height(200)
+            .x(function(d, i) { return d.day; })
+            .y(function(d, i) { return d.intensity; }));
+
+      d3.select("#mood")
+        .datum(moodData)
+          .call(columnChart()
+            .width(graphWidth)
+            .height(200)
             .x(function(d, i) { return d.day; })
             .y(function(d, i) { return d.intensity; }));
     </script>

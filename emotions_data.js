@@ -1,0 +1,1 @@
+var emotionsData = [{day: "M", intensity: 4}, {day: "M", intensity: -5}, {day: "T", intensity: 8}, {day: "T", intensity: -4}, {day: "W", intensity: 9}, {day:"W", intensity:-5}, {day:"R", intensity: 4}, {day:"R", intensity:-5}, {day:"F", intensity: 8}, {day:"F", intensity:-4}, {day:"Sa", intensity:9}, {day:"Sa", intensity:-5}, {day:"Su", intensity:9}, {day:"Su", intensity:-10}];
