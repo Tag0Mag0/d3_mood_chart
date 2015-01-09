@@ -56,13 +56,18 @@
                 .text(title);
 
             // draw average line
-            var values = d3.map(data, function(d, i) { return d[1]; }).keys();
+            var positiveValues = [], negativeValues = [];
+            for (var i = 0; i < data.length; i++) {
+              if (data[i][2] === undefined || data[i][2] === true) {
+                positiveValues.push(data[i][1]);
+              }
+            }
             svg .append("rect")
                 .attr("class", "average-line")
                 .attr("width", width)
                 .attr("height", 5)
                 .attr("x", xScale(0))
-                .attr("y", height - yScale(d3.mean(values)));
+                .attr("y", yScale(d3.mean(positiveValues)));
 
             // Update the inner dimensions.
             var g = svg.select("g")
