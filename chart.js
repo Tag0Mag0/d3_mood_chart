@@ -4,7 +4,14 @@
             height = 420,
             xRoundBands = 0.2,
             xValue = function(d) { return d.day; },
-            yValue = function(d) { return d.intensity; },
+            yValue = function(d) {
+              if (d.is_positive === false) {
+                return -d.intensity;
+              }
+              else {
+                return d.intensity;
+              }
+            },
             xScale = d3.scale.ordinal(),
             yScale = d3.scale.linear(),
             yAxis = d3.svg.axis().scale(yScale).orient("left"),
@@ -20,7 +27,6 @@
             data = data.map(function(d, i) {
               return [xValue.call(data, d, i), yValue.call(data, d, i)];
             });
-
             // Update the x-scale.
             xScale
                 .domain(data.map(function(d) { return d[0];} ))

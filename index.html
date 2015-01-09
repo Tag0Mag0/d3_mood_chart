@@ -21,10 +21,7 @@
         .datum(emotionsData)
           .call(columnChart(-10, 10, emotionGraphTitle )
             .width(graphWidth)
-            .height(200)
-            .x(function(d, i) { return d.day; })
-            .y(function(d, i) { return d.intensity; }));
-
+            .height(200))
       var moodGraphTitle = "Mood"
       d3.select("#mood")
         .datum(moodData)
