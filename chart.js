@@ -78,14 +78,16 @@
                .attr("width", width)
                .attr("height", averageLineThickness)
                .attr("x", xScale(0))
-               .attr("y", yScale(d3.mean(positiveValues)) - averageLineThickness / 2);
+               .attr("y", yScale(d3.mean(positiveValues)) - averageLineThickness / 2)
+               .attr("fill", "green");
             if (negativeValues.length > 0) {
               svg.select(".average-lines").append("rect")
                  .attr("class", "negative-average-line")
                  .attr("width", width)
                  .attr("height", averageLineThickness)
                  .attr("x", xScale(0))
-                 .attr("y", yScale(d3.mean(negativeValues)) - averageLineThickness / 2);
+                 .attr("y", yScale(d3.mean(negativeValues)) - averageLineThickness / 2)
+                 .attr("fill", "green");
             }
 
             // Update the inner dimensions.
