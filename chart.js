@@ -16,7 +16,8 @@
             yScale = d3.scale.linear(),
             yAxis = d3.svg.axis().scale(yScale).orient("left"),
             xAxis = d3.svg.axis().scale(xScale),
-            titleHeight = 25;
+            titleHeight = 25,
+            averageLineThickness = 5;
 
 
         function chart(selection) {
@@ -25,7 +26,7 @@
             // Convert data to standard representation greedily;
             // this is needed for nondeterministic accessors.
             data = data.map(function(d, i) {
-              return [xValue.call(data, d, i), yValue.call(data, d, i)];
+              return [xValue.call(data, d, i), yValue.call(data, d, i), (d.is_positive !== false)];
             });
             // Update the x-scale.
             xScale
@@ -67,18 +68,25 @@
             var positiveValues = [], negativeValues = [];
             for (var i = 0; i < data.length; i++) {
               if (data[i][2] === false) {
-                negativeValues.push(-data[i][1]);
+                negativeValues.push(data[i][1]);
               } else {
                 positiveValues.push(data[i][1]);
               }
             }
             svg.select(".average-lines").append("rect")
-               .attr("class", "average-line")
+               .attr("class", "positive-average-line")
                .attr("width", width)
-               .attr("height", 5)
+               .attr("height", averageLineThickness)
                .attr("x", xScale(0))
-               .attr("y", titleHeight + yScale(d3.mean(positiveValues)))
-               .attr("z-index", -1);
+               .attr("y", yScale(d3.mean(positiveValues)) - averageLineThickness / 2);
+            if (negativeValues.length > 0) {
+              svg.select(".average-lines").append("rect")
+                 .attr("class", "negative-average-line")
+                 .attr("width", width)
+                 .attr("height", averageLineThickness)
+                 .attr("x", xScale(0))
+                 .attr("y", yScale(d3.mean(negativeValues)) - averageLineThickness / 2);
+            }
 
             // Update the inner dimensions.
             var g = svg.select("g")
