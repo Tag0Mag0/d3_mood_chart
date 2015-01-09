@@ -1,4 +1,4 @@
-      function columnChart() {
+      function columnChart(lowBound, highBound) {
         var margin = {top: 30, right: 10, bottom: 50, left: 50},
             width = 420,
             height = 420,
@@ -28,7 +28,7 @@
 
             // Update the y-scale.
             yScale
-                .domain(d3.extent(data.map(function(d) { return d[1];} )))
+                .domain([lowBound, highBound])
                 .range([height - margin.top - margin.bottom, 0])
                 .nice();
 
